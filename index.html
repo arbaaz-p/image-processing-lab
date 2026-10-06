@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="An interactive JavaScript and HTML5 Canvas image-processing lab by Arbaaz Pathan." />
+    <meta name="theme-color" content="#08131f" />
+    <title>Image Processing Lab | Arbaaz Pathan</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2308131f'/%3E%3Cpath d='M14 17h36v30H14z' fill='none' stroke='%234fe0c1' stroke-width='4'/%3E%3Ccircle cx='25' cy='28' r='5' fill='%237db7ff'/%3E%3Cpath d='m17 43 10-9 7 6 6-8 7 11' fill='none' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#lab">Skip to the lab</a>
+    <header>
+      <a class="back-link" href="https://arbaaz-p.github.io/">Arbaaz Pathan / Portfolio</a>
+      <span>COURSEWORK EXPANDED FOR PORTFOLIO</span>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">JAVASCRIPT · HTML5 CANVAS · PIXEL DATA</p>
+          <h1 id="page-title">Image Processing Lab</h1>
+        </div>
+        <p>
+          A browser-based exploration of RGBA pixel manipulation. The original CPSC 2130 lab implemented a custom filter, palette quantization, and manual resampling; this version adds a responsive interface and local image upload.
+        </p>
+      </section>
+
+      <section class="lab" id="lab" aria-label="Interactive image processing workspace">
+        <div class="toolbar">
+          <div class="control-group" role="group" aria-label="Image transformations">
+            <button type="button" data-operation="sepia">Sepia filter</button>
+            <button type="button" data-operation="quantize">8-colour quantization</button>
+            <button type="button" data-operation="resample">4×4 block resample</button>
+            <button class="secondary" type="button" data-operation="reset">Reset</button>
+          </div>
+          <label class="upload">
+            <span>Use your own image</span>
+            <input id="image-upload" type="file" accept="image/*" />
+          </label>
+        </div>
+
+        <div class="canvas-grid">
+          <figure>
+            <figcaption><span>01</span> Original</figcaption>
+            <div class="canvas-frame"><canvas id="source" width="520" height="520"></canvas></div>
+          </figure>
+          <figure>
+            <figcaption><span>02</span> Processed <strong id="operation-label">Unmodified</strong></figcaption>
+            <div class="canvas-frame"><canvas id="output" width="520" height="520"></canvas></div>
+          </figure>
+        </div>
+
+        <div class="status" aria-live="polite">
+          <span id="status-text">Sample loaded. Choose an operation.</span>
+          <span id="resolution-text">520 × 520 pixels</span>
+        </div>
+      </section>
+
+      <section class="notes" aria-labelledby="notes-title">
+        <div>
+          <p class="eyebrow">IMPLEMENTATION NOTES</p>
+          <h2 id="notes-title">What the algorithms do</h2>
+        </div>
+        <div class="note-grid">
+          <article>
+            <span>FILTER</span>
+            <h3>Transform every pixel</h3>
+            <p>The sepia operation calculates new red, green, and blue channel values while preserving the alpha channel.</p>
+          </article>
+          <article>
+            <span>QUANTIZE</span>
+            <h3>Find the nearest colour</h3>
+            <p>Each pixel is replaced by the closest entry in an eight-colour palette using squared Euclidean RGB distance.</p>
+          </article>
+          <article>
+            <span>RESAMPLE</span>
+            <h3>Average a 4×4 block</h3>
+            <p>Sixteen source pixels are averaged into one output pixel, reducing a 520×520 image to 130×130 without Canvas scaling.</p>
+          </article>
+        </div>
+        <p class="privacy-note">Uploaded images stay in your browser and are not sent anywhere.</p>
+        <p class="credit">The default sample is generated in Canvas so the demo remains lightweight and self-contained.</p>
+      </section>
+    </main>
+  </body>
+</html>
