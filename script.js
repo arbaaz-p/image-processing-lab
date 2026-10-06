@@ -87,6 +87,13 @@ function loadGeneratedSample() {
   statusText.textContent = "Generated sample loaded. Choose an operation.";
 }
 
+function loadDefaultSample() {
+  const image = new Image();
+  image.onload = () => loadImage(image, "CPSC 2130 lab image loaded. Choose an operation.");
+  image.onerror = () => loadGeneratedSample();
+  image.src = "assets/lab-hot-air-balloon.jpg";
+}
+
 function applySepia() {
   const imageData = sourceContext.getImageData(0, 0, SIZE, SIZE);
   const pixels = imageData.data;
@@ -196,4 +203,4 @@ upload.addEventListener("change", () => {
   image.src = objectUrl;
 });
 
-loadGeneratedSample();
+loadDefaultSample();
